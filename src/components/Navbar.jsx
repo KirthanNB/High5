@@ -17,6 +17,7 @@ export default function Navbar() {
     { href: "/quiz", text: "Quiz", icon: <AiOutlineQuestionCircle size={20} /> },
     { href: "/community", text: "Community", icon: <AiOutlineTeam size={20} /> },
     { href: "/missionplanner", text: "Mission Planner", icon: <AiOutlineTeam size={20} /> },
+    { href: "/missions", text: "Missions", icon: <AiOutlineTeam size={20} /> },
     { href: "/about", text: "About", icon: <AiOutlineInfoCircle size={20} /> },
   ];
 
