@@ -40,48 +40,62 @@ export default function FloatingChatbot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition"
+          className="fixed bottom-6 right-6 bg-[#0B3D91] text-white rounded-full p-4 shadow-lg hover:bg-[#061f49] transition-all duration-300 animate-pulse"
         >
           <MessageCircle size={24} />
         </button>
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-80 bg-white shadow-xl rounded-2xl border flex flex-col">
-          <div className="flex justify-between items-center bg-blue-600 text-white px-4 py-2 rounded-t-2xl">
-            <span>Gemini Assistant</span>
-            <button onClick={() => setIsOpen(false)}>
+        <div className="fixed bottom-6 right-6 w-80 bg-[#000000] shadow-xl rounded-2xl border border-[#0B3D91] flex flex-col">
+          <div className="flex justify-between items-center bg-[#0B3D91] text-white px-4 py-2 rounded-t-2xl">
+            <div className="flex items-center">
+              <span className="font-bold tracking-wider">Your High5 Assistant</span>
+              <img
+                src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg"
+                alt="NASA Logo"
+                className="h-4 ml-2"
+              />
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="hover:bg-[#061f49] p-1 rounded-full transition-colors"
+            >
               <X size={18} />
             </button>
           </div>
 
-          <div className="flex-1 p-3 overflow-y-auto max-h-96">
+          <div className="flex-1 p-3 overflow-y-auto max-h-96 bg-[#000000] space-y-4">
             {messages.map((msg, i) => (
               <div
                 key={i}
-                className={`mb-2 p-2 rounded-lg ${
+                className={`mb-2 p-3 rounded-lg ${
                   msg.role === "user"
-                    ? "bg-blue-100 self-end text-right"
-                    : "bg-gray-100 text-left"
-                }`}
+                    ? "bg-[#0B3D91] text-white self-end text-right"
+                    : "bg-[#1E2A3A] text-white text-left"
+                } shadow-lg border border-[#0B3D91]/30`}
               >
                 {msg.text}
               </div>
             ))}
-            {loading && <p className="text-sm text-gray-400">Thinking...</p>}
+            {loading && (
+              <p className="text-sm text-[#FC3D21] animate-pulse">
+                Thinking...
+              </p>
+            )}
           </div>
 
-          <div className="flex border-t p-2">
+          <div className="flex border-t border-[#0B3D91] p-3 bg-[#000000]">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              className="flex-1 border rounded-lg px-2 py-1 text-sm"
+              className="flex-1 border border-[#0B3D91] rounded-lg px-3 py-2 text-sm bg-[#1E2A3A] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0B3D91]"
               placeholder="Ask me anything..."
             />
             <button
               onClick={sendMessage}
-              className="ml-2 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm"
+              className="ml-2 bg-[#0B3D91] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#061f49] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading}
             >
               Send
