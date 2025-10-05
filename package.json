@@ -28,6 +28,7 @@
     "react-dom": "19.1.0",
     "react-force-graph": "^1.48.1",
     "react-force-graph-2d": "^1.29.0",
+    "react-icons": "^5.5.0",
     "react-tooltip": "^5.29.1",
     "weaviate-client": "^3.9.0"
   },
