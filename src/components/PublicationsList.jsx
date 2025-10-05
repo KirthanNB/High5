@@ -70,145 +70,186 @@ export default function PublicationsList() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-4xl font-extrabold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 text-center">
-        Space Biology Research Explorer
-      </h1>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900">
+      {/* Header Section - Search Engine Style */}
+      <div className="max-w-4xl mx-auto px-6 pt-20 pb-12">
+        <div className="text-center mb-8">
+          <h1 className="text-6xl font-bold mb-3">
+            <span className="text-cyan-400">Space</span>
+            <span className="text-blue-500">Biology</span>
+          </h1>
+          <p className="text-gray-400 text-sm">Explore the frontier of space research</p>
+        </div>
 
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="flex gap-4 mb-8">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="🔍 Search publications by title..."
-          className="flex-1 px-4 py-3 rounded-xl bg-gray-900/70 text-white border border-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder-gray-400"
-        />
-        <button type="submit" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl hover:opacity-90 transition">
-          Search
-        </button>
-        <button
-          type="button"
-          onClick={() => { setSearchTerm(''); setPage(1); fetchPublications(); }}
-          className="px-6 py-3 bg-gray-700 text-white rounded-xl hover:bg-gray-600 transition"
-        >
-          Clear
-        </button>
-      </form>
-
-      {error && <div className="text-red-500 text-center mb-6">{error}</div>}
-
-      {/* Show publication details */}
-      <AnimatePresence mode="wait">
-        {selectedPub ? (
-          <motion.div
-            key="details"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <button
-              onClick={() => { setSelectedPub(null); scrollToTop(); }}
-              className="mb-6 px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600"
-            >
-              ← Back to Publications
-            </button>
-            <PublicationDetails publication={selectedPub} />
-          </motion.div>
-        ) : (
-          <>
-            <motion.div
-              key="list"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {publications.map((pub, index) => (
-                <motion.div
-key={`${pub._additional?.id || 'no-id'}-${index}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.03 }}
-                  className="bg-gradient-to-br from-gray-900 via-gray-800 to-black border border-cyan-900 rounded-2xl shadow-xl p-5 hover:shadow-cyan-700/30 hover:scale-[1.02] transition-all duration-300"
-                >
-                  <h2 className="text-lg font-semibold text-cyan-300 mb-2 line-clamp-2">
-                    {pub.title || "Untitled Publication"}
-                  </h2>
-                  {pub.abstract && (
-                    <p className="text-gray-400 text-sm line-clamp-3 mb-3">
-                      {pub.abstract}
-                    </p>
-                  )}
-
-                  {/* Buttons */}
-                  <div className="flex flex-wrap gap-2 mt-4">
-
-
-                    <button
-                      onClick={() => { setSelectedPub(pub); scrollToTop(); }}
-                      className="px-4 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-500 transition"
-                    >
-                      🧠 Summarize
-                    </button>
-                    <button
-                      onClick={() => { setSelectedPub(pub); scrollToTop(); }}
-                      className="px-4 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-500 transition"
-                    >
-                      📘 View Details
-                    </button>
-
-                    <button
-                      onClick={() => { setSelectedPub(pub); scrollToTop(); }}
-                      className="px-4 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm rounded-lg hover:opacity-90 transition"
-                    >
-                      🌌 Visualize
-                    </button>
-                    <button
-                      onClick={() => { setSelectedPub(pub); scrollToTop(); }}
-                      className="px-4 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm rounded-lg hover:opacity-90 transition"
-                    >
-                      🌌 Mind Map
-                    </button>
-                  </div>
-
-                  {/* Inline AI Summary */}
-                  {summaries[pub.title] && (
-                    <div className="mt-3 p-3 bg-black/40 border border-cyan-800 rounded-lg text-gray-300 text-sm">
-                      <p>{summaries[pub.title]}</p>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Load More Button */}
-            {hasMore && !loading && (
-              <div className="text-center mt-10">
+        {/* Search Bar - Google-style */}
+        <form onSubmit={handleSearch} className="mb-6">
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur opacity-20 group-hover:opacity-30 transition"></div>
+            <div className="relative flex items-center bg-gray-800/90 backdrop-blur-sm rounded-full border border-gray-700 hover:border-cyan-500 focus-within:border-cyan-500 transition-all shadow-2xl">
+              <span className="pl-6 text-gray-400 text-xl">🔍</span>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search space biology publications..."
+                className="flex-1 px-4 py-5 bg-transparent text-white text-lg focus:outline-none placeholder-gray-500"
+              />
+              {searchTerm && (
                 <button
-                  onClick={handleLoadMore}
-                  className="px-8 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold rounded-xl hover:opacity-90 shadow-lg transition"
+                  type="button"
+                  onClick={() => { setSearchTerm(''); setPage(1); fetchPublications(); }}
+                  className="pr-4 text-gray-400 hover:text-white transition"
                 >
-                  🔽 Load More
+                  ✕
                 </button>
-              </div>
-            )}
+              )}
+            </div>
+          </div>
+          <div className="flex justify-center gap-3 mt-6">
+            <button 
+              type="submit" 
+              className="px-6 py-2.5 bg-gray-800 text-gray-200 rounded-md hover:bg-gray-700 border border-gray-700 transition text-sm font-medium"
+            >
+              Search Publications
+            </button>
+            <button
+              type="button"
+              onClick={() => { setSearchTerm(''); setPage(1); fetchPublications(); }}
+              className="px-6 py-2.5 bg-gray-800 text-gray-200 rounded-md hover:bg-gray-700 border border-gray-700 transition text-sm font-medium"
+            >
+              I'm Feeling Lucky
+            </button>
+          </div>
+        </form>
 
-            {loading && page > 1 && (
-              <div className="text-center text-cyan-400 mt-4 animate-pulse">
-                Loading more publications...
-              </div>
-            )}
-
-            {!hasMore && !loading && publications.length > 0 && (
-              <div className="text-center text-gray-500 mt-8">
-                🚀 You’ve reached the end of the list!
-              </div>
-            )}
-          </>
+        {/* Results Count */}
+        {!loading && publications.length > 0 && !selectedPub && (
+          <div className="text-gray-500 text-sm mb-4">
+            About {publications.length}+ results {searchTerm && `for "${searchTerm}"`}
+          </div>
         )}
-      </AnimatePresence>
+      </div>
+
+      {error && <div className="text-red-500 text-center mb-6 max-w-4xl mx-auto px-6">{error}</div>}
+
+      <div className="max-w-4xl mx-auto px-6 pb-12">
+        {/* Show publication details */}
+        <AnimatePresence mode="wait">
+          {selectedPub ? (
+            <motion.div
+              key="details"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <button
+                onClick={() => { setSelectedPub(null); scrollToTop(); }}
+                className="mb-6 text-cyan-400 hover:text-cyan-300 flex items-center gap-2 text-sm"
+              >
+                ← Back to results
+              </button>
+              <PublicationDetails publication={selectedPub} />
+            </motion.div>
+          ) : (
+            <>
+              <motion.div
+                key="list"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-6"
+              >
+                {publications.map((pub, index) => (
+                  <motion.div
+                    key={`${pub._additional?.id || 'no-id'}-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-lg p-6 hover:bg-gray-800/60 hover:border-gray-600 transition-all duration-200"
+                  >
+                    <button 
+                      onClick={() => { setSelectedPub(pub); scrollToTop(); }}
+                      className="text-left w-full group"
+                    >
+                      <h2 className="text-xl text-cyan-400 group-hover:text-cyan-300 mb-2 font-normal hover:underline">
+                        {pub.title || "Untitled Publication"}
+                      </h2>
+                      <div className="text-green-600 text-sm mb-3">
+                        {pub.url || 'nasa.gov › space-biology'}
+                      </div>
+                      {pub.abstract && (
+                        <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+                          {pub.abstract}
+                        </p>
+                      )}
+                    </button>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-700">
+                      <button
+                        onClick={() => { setSelectedPub(pub); scrollToTop(); }}
+                        className="px-3 py-1 bg-gray-700/50 text-gray-300 text-xs rounded hover:bg-gray-700 transition"
+                      >
+                        🧠 Summarize
+                      </button>
+                      <button
+                        onClick={() => { setSelectedPub(pub); scrollToTop(); }}
+                        className="px-3 py-1 bg-gray-700/50 text-gray-300 text-xs rounded hover:bg-gray-700 transition"
+                      >
+                        📘 Details
+                      </button>
+                      <button
+                        onClick={() => { setSelectedPub(pub); scrollToTop(); }}
+                        className="px-3 py-1 bg-gray-700/50 text-gray-300 text-xs rounded hover:bg-gray-700 transition"
+                      >
+                        🌌 Visualize
+                      </button>
+                      <button
+                        onClick={() => { setSelectedPub(pub); scrollToTop(); }}
+                        className="px-3 py-1 bg-gray-700/50 text-gray-300 text-xs rounded hover:bg-gray-700 transition"
+                      >
+                        🗺️ Mind Map
+                      </button>
+                    </div>
+
+                    {/* Inline AI Summary */}
+                    {summaries[pub.title] && (
+                      <div className="mt-3 p-3 bg-black/40 border border-cyan-800 rounded-lg text-gray-300 text-sm">
+                        <p>{summaries[pub.title]}</p>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Load More Button */}
+              {hasMore && !loading && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={handleLoadMore}
+                    className="px-6 py-2.5 bg-gray-800 text-gray-200 rounded-md hover:bg-gray-700 border border-gray-700 transition text-sm font-medium"
+                  >
+                    Load More Results
+                  </button>
+                </div>
+              )}
+
+              {loading && page > 1 && (
+                <div className="text-center text-gray-400 mt-6 text-sm">
+                  Loading more results...
+                </div>
+              )}
+
+              {!hasMore && !loading && publications.length > 0 && (
+                <div className="text-center text-gray-500 mt-8 text-sm">
+                  End of results
+                </div>
+              )}
+            </>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

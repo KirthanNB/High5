@@ -16,6 +16,7 @@ export default function Navbar() {
     { href: "/resources", text: "Resources", icon: <AiOutlineBook size={20} /> },
     { href: "/quiz", text: "Quiz", icon: <AiOutlineQuestionCircle size={20} /> },
     { href: "/community", text: "Community", icon: <AiOutlineTeam size={20} /> },
+    { href: "/missionplanner", text: "Mission Planner", icon: <AiOutlineTeam size={20} /> },
     { href: "/about", text: "About", icon: <AiOutlineInfoCircle size={20} /> },
   ];
 
@@ -34,7 +35,7 @@ export default function Navbar() {
             height={42}
             className="rounded-full border border-blue-400"
           />
-          <span>NASA BioScience</span>
+          <span>Space Bio Search Engine</span>
         </Link>
 
         {/* Desktop Menu */}

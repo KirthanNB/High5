@@ -1,85 +1,74 @@
 import Image from 'next/image';
 
 export default function AboutPage() {
+  const teamMembers = [
+    { name: 'Kirthan', role: 'Lead Researcher' },
+    { name: 'Shreyas Patil', role: 'AI Specialist' },
+    { name: 'Vinay S', role: 'Education Designer' },
+    { name: 'Rohith M', role: 'Community Manager' },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#000000] text-white">
-      {/* Hero Section */}
-      <div className="relative h-[40vh] bg-gradient-to-br from-[#0B3D91] to-black">
-        <div className="absolute inset-0 bg-[url('/stars.png')] opacity-30"></div>
-        <div className="container mx-auto px-6 h-full flex items-center justify-center">
-          <div className="text-center z-10">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Meet Team High5</h1>
-            <p className="text-xl text-blue-300">Democratizing Space Research for Everyone</p>
-          </div>
+    <div className="min-h-screen bg-black text-white">
+      <section className="container mx-auto px-6 py-16 text-center">
+        <div className="mx-auto mb-6">
+          <Image src="/team.jpg" alt="High5" width={80} height={80} className="mx-auto rounded-full opacity-80" />
         </div>
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-3">About High5</h1>
+        <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          High5 makes NASA research understandable and engaging for everyone through concise AI summaries,
+          interactive visualizations, and learner-first design.
+        </p>
+      </section>
+
+      <div className="container mx-auto px-6">
+        <div className="h-px w-full bg-blue-900/40" />
       </div>
 
-      {/* Mission Section */}
-      <div className="container mx-auto px-6 py-16">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-blue-400 mb-8">Our Mission</h2>
-          <p className="text-gray-300 text-lg leading-relaxed mb-8">
-            High5 was born from a vision to bridge the gap between NASA's cutting-edge research 
-            and global audiences. We believe that space science should be accessible to everyone, 
-            from curious students to seasoned researchers.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            <div className="bg-[#0B3D91]/20 p-6 rounded-xl border border-blue-900">
-              <h3 className="text-xl font-bold text-blue-300 mb-4">Innovation</h3>
-              <p className="text-gray-400">
-                Leveraging AI and interactive visualizations to transform complex research into 
-                digestible content.
-              </p>
-            </div>
-            <div className="bg-[#0B3D91]/20 p-6 rounded-xl border border-blue-900">
-              <h3 className="text-xl font-bold text-blue-300 mb-4">Education</h3>
-              <p className="text-gray-400">
-                Creating engaging learning experiences through quizzes, visualizations, and 
-                community interaction.
-              </p>
-            </div>
-            <div className="bg-[#0B3D91]/20 p-6 rounded-xl border border-blue-900">
-              <h3 className="text-xl font-bold text-blue-300 mb-4">Community</h3>
-              <p className="text-gray-400">
-                Building a global network of space enthusiasts, researchers, and learners.
-              </p>
-            </div>
-          </div>
-        </div>
+      <section className="container mx-auto px-6 py-12">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-blue-300">Our Mission</h2>
+        <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          We bridge the gap between complex space science and curious minds. From students to educators and
+          lifelong explorers, our tools simplify discovery with clear explanations, visuals, and quizzes.
+        </p>
+      </section>
+
+      <div className="container mx-auto px-6">
+        <div className="h-px w-full bg-blue-900/40" />
       </div>
 
-      {/* Team Section */}
-      <div className="bg-[#061f49]/30 py-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-blue-400 mb-12 text-center">Our Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {[1, 2, 3, 4].map((member) => (
-              <div key={member} className="bg-black/50 p-6 rounded-xl border border-blue-900 text-center">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-600 to-purple-600"></div>
-                <h3 className="text-xl font-bold text-blue-300">Team Member {member}</h3>
-                <p className="text-gray-400 mt-2">Role Description</p>
+      <section className="container mx-auto px-6 py-16">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-blue-300">Team</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {teamMembers.map((member) => (
+            <div
+              key={member.name}
+              className="bg-[#0B3D91]/10 border border-blue-900 hover:border-blue-700 transition-colors rounded-xl p-5 text-center backdrop-blur-sm"
+            >
+              <div className="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border border-blue-700">
+                <Image src="/team.jpg" alt={member.name} width={80} height={80} className="object-cover w-full h-full" />
               </div>
-            ))}
-          </div>
+              <div className="font-semibold text-blue-200 text-lg">{member.name}</div>
+              <div className="text-gray-400 text-sm">{member.role}</div>
+            </div>
+          ))}
         </div>
+      </section>
+
+      <div className="container mx-auto px-6">
+        <div className="h-px w-full bg-blue-900/40" />
       </div>
 
-      {/* Contact Section */}
-      <div className="container mx-auto px-6 py-16">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-blue-400 mb-8">Get In Touch</h2>
-          <p className="text-gray-300 mb-8">
-            Have questions or want to contribute? We'd love to hear from you!
-          </p>
-          <a 
-            href="mailto:contact@high5.space" 
-            className="inline-block bg-[#0B3D91] px-8 py-3 rounded-full hover:bg-[#061f49] transition-colors"
-          >
-            Contact Us
-          </a>
-        </div>
-      </div>
+      <section className="container mx-auto px-6 py-20 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-blue-300">Get in Touch</h2>
+        <p className="text-gray-300 mb-6">Questions or ideas? We would love to connect.</p>
+        <a
+          href="mailto:hello@high5.space"
+          className="inline-block bg-[#0B3D91] px-6 py-3 rounded-full font-semibold hover:bg-[#061f49] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
+        >
+          Email Us
+        </a>
+      </section>
     </div>
   );
 }
