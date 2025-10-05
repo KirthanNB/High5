@@ -1,43 +1,25 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
-
-const client = new OpenAI({
-  apiKey: process.env.GEMINI_API_KEY
-});
-
-// Helper: get embedding from Gemini
-async function getGeminiEmbedding(text) {
-  const response = await client.embeddings.create({
-    model: "gemini-text-embedding-3-large",
-    input: text
-  });
-  return response.data[0].embedding;
-}
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const search = searchParams.get('search') || '';
-  const limit = parseInt(searchParams.get('limit') || '12');
-  const offset = parseInt(searchParams.get('offset') || '0');
+  const search = searchParams.get('search');
+  const limit = searchParams.get('limit') || 20;
 
   try {
     const weaviateUrl = process.env.WEAVIATE_URL;
     const apiKey = process.env.WEAVIATE_API_KEY;
 
-    let nearVectorClause = '';
-    if (search) {
-      const embedding = await getGeminiEmbedding(search);
-      nearVectorClause = `nearVector: { vector: [${embedding.join(',')}] }`;
-    }
-
-    const query = {
+    let query = {
       query: `
         {
           Get {
             Publication(
-              limit: ${limit}
-              ${nearVectorClause}
-              offset: ${offset}
+              limit: ${parseInt(limit)}
+              ${search ? `where: {
+                path: ["title"],
+                operator: Like,
+                valueString: "*${search}*"
+              }` : ''}
             ) {
               title
               pmcid
@@ -45,7 +27,6 @@ export async function GET(request) {
               abstract
               _additional {
                 id
-                certainty
               }
             }
           }
@@ -67,6 +48,7 @@ export async function GET(request) {
     }
 
     const data = await response.json();
+    
     if (data.errors) {
       throw new Error(data.errors[0].message);
     }
@@ -75,7 +57,6 @@ export async function GET(request) {
       publications: data.data.Get.Publication,
       total: data.data.Get.Publication.length
     });
-
   } catch (error) {
     console.error('Error fetching publications:', error);
     return NextResponse.json(
