@@ -2,10 +2,12 @@ import Image from 'next/image';
 
 export default function AboutPage() {
   const teamMembers = [
-    { name: 'Kirthan', role: 'Lead Researcher' },
-    { name: 'Shreyas Patil', role: 'AI Specialist' },
-    { name: 'Vinay S', role: 'Education Designer' },
-    { name: 'Rohith M', role: 'Community Manager' },
+    { name: 'Kirthan', role: 'Backend Manager' },
+    { name: 'Shreyas Patil', role: 'UI Designer' },
+    { name: 'Vinay S', role: 'UX Builder' },
+    { name: 'Rohith M', role: 'Components Manager' },
+    { name: 'Chethan K', role: 'All-Rounder' },
+    { name: 'Narasimha Murthy', role: 'Summarizer' },
   ];
 
   return (
