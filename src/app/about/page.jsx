@@ -65,7 +65,7 @@ export default function AboutPage() {
         <h2 className="text-2xl md:text-3xl font-bold mb-3 text-blue-300">Get in Touch</h2>
         <p className="text-gray-300 mb-6">Questions or ideas? We would love to connect.</p>
         <a
-          href="mailto:hello@high5.space"
+          href="kirthannb@gmail.com"
           className="inline-block bg-[#0B3D91] px-6 py-3 rounded-full font-semibold hover:bg-[#061f49] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
         >
           Email Us
